@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib  prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="modelo.bean.Actividad" %>
 
@@ -35,25 +35,20 @@
   
   <tbody>
   
-  <%for(int i = 0; i< actividades.size(); i++){ 
-  		Actividad actividad = actividades.get(i);
-  %>
-  
-    <tr>
-      <th>${actividad.getNombre()}</th>    
-      <td>${actividad.getFecha_inicio()}</td>
-      <td>${actividad.getDias()}</td>      
-      
-             
-      <td>
-      	  <a href="VerActividad?id=<%=actividad.getId()%>">Ver Actividad</a><br>   
-      	  <a href="EliminarActividad?id=<%=actividad.getId()%>">Eliminar</a><br>
-      	  <a href="AbrirFormModifAct?id=<%=actividad.getId()%>">Modificar</a><br>      
-      </td>
-      <td></td>
-    </tr>
-   
-   <%} %>
+  <c:forEach items="${actividades}" var="actividad">
+        <tr>
+          <th><a href="VerActividad?id=${actividad.getId()}">${actividad.getNombre()}</a></th>
+          <td>${actividad.getFecha_inicio()}</td>
+          <td>${actividad.getDias()}</td>
+          <td>
+              <a class="btn btn-primary" href="VerActividad?id=${actividad.getId()}">Ver</a>
+              <a class="btn btn-secondary" href="EditarActividad?id=${actividad.getId()}">Editar</a>
+              <a class="btn btn-danger" href="EliminarActividad?id=${actividad.getId()}">Eliminar</a>
+
+          </td>
+        </tr>
+
+       </c:forEach>
    
   
 </table>
