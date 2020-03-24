@@ -22,6 +22,10 @@
   </head>
   <body>
     <h1>ACTIVIDADES</h1>
+   <form action="BuscarActividades" method="POST" class="form-inline">
+            <input type="text" name="query" class="form-control" placeholder="buscar actividades">
+            <button type="submit" class="btn btn-primary mx-2">Submit</button>
+        </form>
     <table class="table table-striped">
   <thead>
     <tr>
@@ -42,6 +46,7 @@
           <td>${actividad.getDias()}</td>
           <td>
               <a class="btn btn-primary" href="VerActividad?id=${actividad.getId()}">Ver</a>
+              <a class="btn btn-primary" href="Inscribir?id=${actividad.getId()}">Inscribir</a>
               <a class="btn btn-secondary" href="EditarActividad?id=${actividad.getId()}">Editar</a>
               <a class="btn btn-danger" href="EliminarActividad?id=${actividad.getId()}">Eliminar</a>
 
