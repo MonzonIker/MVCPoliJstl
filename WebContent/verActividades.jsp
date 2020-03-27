@@ -21,6 +21,21 @@
     <title>ACTIVIDADES</title>
   </head>
   <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="verActividades">Actividades</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="verUsuarios">Usuarios</a>
+      </li>
+    </ul>
+  </div>
+</nav>
     <h1>ACTIVIDADES</h1>
    <form action="BuscarActividades" method="POST" class="form-inline">
             <input type="text" name="query" class="form-control" placeholder="buscar actividades">
@@ -35,7 +50,6 @@
       <th scope="col">Acciones</th>
     </tr>
   </thead>
-    	<table class="table table-striped">
   
   <tbody>
   
