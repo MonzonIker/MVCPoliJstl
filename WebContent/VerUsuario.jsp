@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib  prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ page import="modelo.bean.Usuario" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -25,40 +25,13 @@
     </ul>
   </div>
 </nav>
-
-
-<h1>Usuarios</h1>
-<a class="btn btn-success" href="abrirFormInsertarUsuario">Añadir usuario</a>
+<h1>Ver Usuario</h1>
+    
+           
    
-    <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">NombreApellido</th>
-      <th scope="col">DNI</th>
-      <th scope="col">Codigo</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-  
-  <c:forEach items="${usuarios}" var="usuario">
-        <tr>
-          <th>${usuario.getNombreApellido()}</th>
-          <td>${usuario.getDni()}</td>
-          <td>${usuario.getCodigo()}</td>
-          <td>
-              <a class="btn btn-primary" href="VerUsuario?id=${usuario.getId()}">Ver</a>
-              
-              <a class="btn btn-secondary" href="AbrirFormModifUsuario?id=${usuario.getId()}">Editar</a>
-              <a class="btn btn-danger" href="EliminarUsuario?id=${usuario.getId()}">Eliminar</a>
-
-          </td>
-        </tr>
-
-       </c:forEach>
-   
-  
-</table>
+  <b>NombreApellido:</b> ${usuario.getNombreApellido()} <br>
+ <b> DNI: </b>${usuario.getDni()} <br>
+ <b> Codigo:</b>  ${usuario.getCodigo()} <br>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

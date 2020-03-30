@@ -3,6 +3,7 @@
 <%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="modelo.bean.Actividad" %>
+<%@ page import="modelo.dao.ModeloInscripcion" %>
 
 <%
 	ArrayList<Actividad> actividades = (ArrayList<Actividad>)request.getAttribute("actividades");
@@ -36,6 +37,7 @@
     </ul>
   </div>
 </nav>
+<%ModeloInscripcion mI = new ModeloInscripcion(); %>
     <h1>ACTIVIDADES</h1>
     <a class="btn btn-success" href="abrirFormInsertarAct">Añadir actividad</a>
    <form action="BuscarActividades" method="POST" class="form-inline">
@@ -48,17 +50,19 @@
       <th scope="col">Nombre</th>
       <th scope="col">Fecha Inicio</th>
       <th scope="col">Dias Semana</th>
+      <th scope="col">Inscripciones</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
   
   <tbody>
-  
+  <%int i =0; %>
   <c:forEach items="${actividades}" var="actividad">
         <tr>
           <th><a href="VerActividad?id=${actividad.getId()}">${actividad.getNombre()}</a></th>
           <td>${actividad.getFecha_inicio()}</td>
           <td>${actividad.getDias()}</td>
+          <td><%=mI.getUsuariosInscritos(actividades.get(i).getId()).size() %></td>
           <td>
               <a class="btn btn-primary" href="VerActividad?id=${actividad.getId()}">Ver</a>
               <a class="btn btn-primary" href="Inscribir?id=${actividad.getId()}">Inscribir</a>
@@ -68,7 +72,7 @@
 
           </td>
         </tr>
-
+<%i++; %>
        </c:forEach>
    
   

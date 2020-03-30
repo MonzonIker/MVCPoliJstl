@@ -1,29 +1,30 @@
 package controlador;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.bean.Actividad;
-import modelo.bean.Usuario;
-import modelo.dao.ModeloActividad;
-import modelo.dao.ModeloInscripcion;
 
-import java.util.ArrayList;
+import modelo.bean.Usuario;
+import modelo.dao.ModeloUsuario;
+
 /**
- * Servlet implementation class VerActividades
+ * Servlet implementation class ModificarUsuario
  */
-@WebServlet("/verActividades")
-public class VerActividades extends HttpServlet {
+@WebServlet("/ModificarUsuario")
+public class ModificarUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VerActividades() {
+    public ModificarUsuario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +33,28 @@ public class VerActividades extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int idUsuario = Integer.parseInt(request.getParameter("id"));		
+		ModeloUsuario mUsuario = new ModeloUsuario();		// crear un ojbeto de la clase Modelo Usuario	
+		// Recuperar mediante request.getParameter los valores del formulario
 		
-		ModeloActividad mActividades = new ModeloActividad();
+		String nombre=request.getParameter("nombre");
+
 		
-		ArrayList<Actividad> actividades = mActividades.selectAll();		
 		
-		request.setAttribute("actividades", actividades);		
+		String dni=request.getParameter("dni");
+		String codigo=request.getParameter("codigo");
 		
-		request.getRequestDispatcher("verActividades.jsp").forward(request, response);
-		
+		// crear una Usuario con los datos del formulario	
+		Usuario Usuario=new Usuario();
+		Usuario.setId(idUsuario);
+		Usuario.setNombreApellido(nombre);
+	    Usuario.setDni(dni);
+	    Usuario.setCodigo(codigo);
+	    
+	    //insertar Usuario
+		mUsuario.update(Usuario);	
+		response.sendRedirect("verUsuarios");
 	}
 
 	/**

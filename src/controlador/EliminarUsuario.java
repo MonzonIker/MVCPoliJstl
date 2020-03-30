@@ -1,29 +1,25 @@
 package controlador;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.bean.Actividad;
-import modelo.bean.Usuario;
-import modelo.dao.ModeloActividad;
-import modelo.dao.ModeloInscripcion;
 
-import java.util.ArrayList;
+import modelo.dao.ModeloUsuario;
+
 /**
- * Servlet implementation class VerActividades
+ * Servlet implementation class EliminarUsuario
  */
-@WebServlet("/verActividades")
-public class VerActividades extends HttpServlet {
+@WebServlet("/EliminarUsuario")
+public class EliminarUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VerActividades() {
+    public EliminarUsuario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +28,11 @@ public class VerActividades extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ModeloActividad mActividades = new ModeloActividad();
-		
-		ArrayList<Actividad> actividades = mActividades.selectAll();		
-		
-		request.setAttribute("actividades", actividades);		
-		
-		request.getRequestDispatcher("verActividades.jsp").forward(request, response);
-		
+		// TODO Auto-generated method stub
+		int idUsuario = Integer.parseInt(request.getParameter("id"));		
+		ModeloUsuario mUsuario = new ModeloUsuario();
+		mUsuario.delete(idUsuario);		
+		response.sendRedirect("verUsuarios");
 	}
 
 	/**
