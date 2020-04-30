@@ -14,6 +14,8 @@ import org.json.JSONStringer;
 
 import modelo.bean.Usuario;
 import modelo.dao.ModeloUsuario;
+import modelo.util.DniComparator;
+import modelo.util.DniComparatorDesc;
 import modelo.util.NombreComparator;
 import modelo.util.NombreComparatorDesc;
 
@@ -41,11 +43,20 @@ public class ApiUsuariosOrdenados extends HttpServlet {
 		ArrayList<Usuario> Usuarios = mUsuario.selectAll();
 		
 		String filtro = request.getParameter("filtro");
+		String campo = request.getParameter("campo");
+		
+		if (campo.contentEquals("dni")) {
+			if (filtro.contentEquals("desc")) {
+				Usuarios.sort(new DniComparatorDesc());
+			}else {
+			Usuarios.sort(new DniComparator());}
+		}else {
 		
 		if (filtro.contentEquals("desc")) {
 			Usuarios.sort(new NombreComparatorDesc());
 		}else {
 		Usuarios.sort(new NombreComparator());}
+		}
 		
 		String jsonString = JSONStringer.valueToString(Usuarios);
 		PrintWriter out = response.getWriter();
