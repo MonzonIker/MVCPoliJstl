@@ -1,28 +1,32 @@
 package api;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import modelo.bean.Usuario;
 import modelo.dao.ModeloUsuario;
+import modelo.util.NombreComparatorDesc;
 
 /**
- * Servlet implementation class ApiCreateUsuario
+ * Servlet implementation class ApiUsuariosDec
  */
-@WebServlet("/ApiCreateUsuario")
-public class ApiCreateUsuario extends HttpServlet {
+@WebServlet("/ApiUsuariosDec")
+public class ApiUsuariosDesc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ApiCreateUsuario() {
+    public ApiUsuariosDesc() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +36,18 @@ public class ApiCreateUsuario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-        
+		ModeloUsuario mUsuario = new ModeloUsuario();
+		ArrayList<Usuario> Usuarios = mUsuario.selectAll();
+		
+		Usuarios.sort(new NombreComparatorDesc());
+		
+		String jsonString = JSONStringer.valueToString(Usuarios);
+		PrintWriter out = response.getWriter();
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");            //kodifikazioa zehazten du
+		out.print(jsonString);
+		out.flush();
 	}
 
 	/**
@@ -41,22 +55,7 @@ public class ApiCreateUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		String jsonUsuario = request.getParameter("usuario");
-		JSONObject jsonObject = new JSONObject(jsonUsuario);
-		if(jsonObject.getString("codigo").length()==4 && jsonObject.getString("dni").length()==9) {
-			// crear usuario
-			Usuario usuario = new Usuario();
-	        usuario.setNombreApellido(jsonObject.getString("nombreApellido"));
-	        
-	        usuario.setCodigo(jsonObject.getString("codigo"));
-	        usuario.setDni(jsonObject.getString("dni"));
-	        ModeloUsuario mUsuario = new ModeloUsuario();
-	        mUsuario.insert(usuario);
-		}else
-		
-		
-        response.setHeader("Access-Control-Allow-Origin","*");
+		doGet(request, response);
 	}
 
 }
